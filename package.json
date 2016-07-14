@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "MMA"
+    "MMA",
+    "JSON",
+    "Mixed",
+    "Martial",
+    "Arts"
   ],
   "author": "Lorenzo Freitas",
   "license": "BSD-2-Clause",
