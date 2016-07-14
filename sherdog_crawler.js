@@ -6,8 +6,6 @@ exports.fighter = function(data, callback){
     if (link != 0){
       sherdog_access(link, function(data){
         return callback(JSON.stringify(data));
-//        return callback(JSON.parse(data));
-//        return callback(data);
       });
     } else {
       return callback(0);
@@ -37,9 +35,7 @@ google_search = function(query, callback){
 
     console.log(query);
 
-    if (!link){
-      return callback(0);
-    };
+    if (!link) return callback(0);
 
     link = link.replace("/url?q=", "");
     link = link.split("&")[0];
@@ -168,8 +164,6 @@ sherdog_access = function(link, callback){
 
     var img = $('img.profile_image.photo').attr("src");
 
-    //console.log(img);
-
     var data = {
       id_sherdog: id_sherdog,
       name: name,
@@ -204,8 +198,6 @@ sherdog_access = function(link, callback){
       fights: fights,
       img: img
     };
-
-    //console.log(data);
 
     return callback(data);
 
