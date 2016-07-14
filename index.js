@@ -30,15 +30,12 @@ app.get('/fighter', function(req, res){
     res.send("ERRORR!");
   } else {
     sherdog.fighter(fighter, function(data){
-      console.log(data);
       res.send(data);
     });
   }
 
 
 });
-
-//app.listen(3000);
 
 app.listen(process.env.PORT || 3000, function () {
   console.log('Example app listening on port 3000!');
