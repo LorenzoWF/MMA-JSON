@@ -1,2 +1,2 @@
 web: node index.js
-web: node sherdog_crawler.js
+bin/rails server -p $PORT -e $RAILS_ENV --binding 127.0.0.1
