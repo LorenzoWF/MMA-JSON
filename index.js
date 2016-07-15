@@ -7,6 +7,7 @@ var file = require('fs');
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/bootstrap/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'))
+app.use('/plugins_extras', express.static(__dirname + '/plugins_extras'));
 
 app.get('/', function(req, res){
 

@@ -1,16 +1,23 @@
 # MMA-JSON
 
-This application aims to return JSON with MMA's information. It is currently in its first release and is hosted on Heroku.
+This application aims to return JSON with MMA's information so it can be used on any platform or programming language. It is currently in its first release and is hosted on Heroku for free.
 
 https://mma-json.herokuapp.com
 
 Taking Sherdog fighters information:
 
-https://mma-json.herokuapp.com/fighter?name=[fighter]
+https://mma-json.herokuapp.com/fighter?name=name_of_fighter
+
+
+### version
+
+1.0.0
 
 
 ### Tech:
 
-### Contact:
+MMA-JSON uses a number of open source projects to work properly:
 
-### You want to contribute to this project?
+* node.js
+* Bootstrap
+* jQuery  
