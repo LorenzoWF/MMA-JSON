@@ -19,10 +19,7 @@ google_search = function(query, callback){
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
   };
 
-  query = query.split('-').join(' ');
-  query = query.toLowerCase();
-  query = query.capitalize();
-  query = query.split(' ').join('-');
+  query = query.split('-').join(' ').toLowerCase().capitalize().split(' ').join('-');
 
   console.log("Search in google for: "+query);
 
@@ -32,8 +29,6 @@ google_search = function(query, callback){
     var $ = cheerio.load(body);
 
     var link = $('a[href*="http://www.sherdog.com/fighter/'+query+'"]').attr("href");
-
-    console.log(query);
 
     if (!link) return callback(0);
 
@@ -57,32 +52,26 @@ sherdog_access = function(link, callback){
 
     var $ = cheerio.load(body);
 
+    $.fn.ignore = function(sel){ return this.clone().find(sel||">*").remove().end(); };
+
     var name = $('span.fn').text();
     var nickname = $('span.nickname em').text();
     var birthday = $('span.item.birthday span').text();
-
     var age = $('span.item.birthday strong').text();
     age = age.replace('AGE: ', '');
-
     var nationality = $('span.item.birthplace strong').text();
     var locality = $('span.item.birthplace span.locality').text();
-
     var height = $('span.item.height strong').text();
-
     var height_cm = $('span.item.height').text();
     height_cm = height_cm.match(numberPattern);
     height_cm = height_cm[2] + "." + height_cm[3];
-
     var weight = $('span.item.weight strong').text();
     weight = weight.match(numberPattern);
     weight = weight[0];
-
     var weight_kg = $('span.item.weight').text();
     weight_kg = weight_kg.match(numberPattern);
     weight_kg = weight_kg[1] + "." + weight_kg[2];
-
     var association = $('h5.item.association strong').text();
-
     var wclass = $('h6.item.wclass strong').text();
     var wins_total = $('div.bio_graph span.counter').text();
     wins_total = wins_total.substring(0,2);
@@ -91,26 +80,16 @@ sherdog_access = function(link, callback){
     var draws = 0;
 
     if ( $("div.right_side").length ){
-        var qtd = 0;
-        $("div.right_side span.counter").each(function(){
-          qtd ++;
-        });
+        draws = $("div.right_side").children('div').eq(0).text();
+        draws = draws.match(numberPattern);
 
-        if (qtd == 2){
-          draws = $("div.right_side span.counter").text();
-          var nc = draws.charAt(1);
-          draws = draws.charAt(0);
-        } else {
-          if ($("div.right_side span.result").text() == "Draws"){
-            draws = $("div.right_side span.counter").text();
-          } else {
-            var nc = $("div.right_side span.counter").text();
-          }
+        if ($("div.right_side").children('div').eq(1).length){
+            var nc = $("div.right_side").children('div').eq(1).text();
+            nc = nc.match(numberPattern);
         }
     }
 
     var record = wins_total+"-"+loses_total+"-"+draws;
-
     if (nc) record = record+"("+nc+")";
 
     var ko = [0, 0], sub = [0, 0], dec = [0, 0], others = [0, 0], k=0, s=0, d=0, o=0;
@@ -142,10 +121,6 @@ sherdog_access = function(link, callback){
     });
 
     var fights = new Array;
-
-    $.fn.ignore = function(sel){
-	     return this.clone().find(sel||">*").remove().end();
-    };
 
     $('div.content.table tr').each(function(i){
     	if (i > 0){
